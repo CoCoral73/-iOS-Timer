@@ -9,6 +9,7 @@ import SwiftUI
 
 let label = ["전파 탐지기(기본 설정)", "공상음", "공지음", "녹차", "놀이 시간", "느린 상승", "도입음", "물결", "반짝반짝", "실행 중단"]
 
+//메인 뷰
 struct TimerView: View {
     @State private var isPresented = false
     @State private var selectedOption = 0
@@ -16,7 +17,7 @@ struct TimerView: View {
     
     var body: some View {
         VStack {
-            
+            //버튼
             HStack {
                 Spacer().frame(width: 20)
                 Button(action: {
@@ -48,6 +49,8 @@ struct TimerView: View {
                 }
                 Spacer().frame(width: 20)
             }
+            
+            //List 버튼
             List {
                 Button(action: {
                     isPresented.toggle()
@@ -70,6 +73,7 @@ struct TimerView: View {
     }
 }
 
+//동작 선택 뷰
 struct PickerView: View {
     @Binding var isPresented: Bool
     @Binding var selectedOption: Int
