@@ -16,6 +16,7 @@ struct TimerView: View {
     
     var body: some View {
         VStack {
+            
             HStack {
                 Spacer().frame(width: 20)
                 Button(action: {
@@ -52,15 +53,16 @@ struct TimerView: View {
                     isPresented.toggle()
                 }) {
                     HStack {
-                        Text("타이머 종료 시").foregroundColor(.black)
+                        Text("타이머 종료 시").foregroundColor(.white)
                         Spacer()
-                        Text(label[selectedOption]).foregroundColor(Color(uiColor: UIColor.darkGray))
-                        Image(systemName: "chevron.right").foregroundColor(.gray)
+                        Text(label[selectedOption]).foregroundColor(Color("button_font"))
+                        Image(systemName: "chevron.right").foregroundColor(Color("chevron_right"))
                     }
                 }
                 .sheet(isPresented: $isPresented, content: {
                     PickerView(isPresented: $isPresented, selectedOption: $selectedOption, tmpOption: $tmpOption)
                 })
+                .listRowBackground(Color("button_background"))
             }
             .listStyle(InsetGroupedListStyle())
             .scrollContentBackground(.hidden)
@@ -83,11 +85,11 @@ struct PickerView: View {
                             tmpOption = index
                         }) {
                             HStack {
-                                if tmpOption == index { checkmark.foregroundColor(.orange) }
+                                if tmpOption == index { checkmark.foregroundColor(Color("check")) }
                                 else { checkmark.hidden() }
-                                Text(label[index]).foregroundColor(.black)
+                                Text(label[index]).foregroundColor(.white)
                             }
-                        }
+                        }.listRowBackground(Color("rowColor"))
                     }
                 }
                 Section {
@@ -96,31 +98,31 @@ struct PickerView: View {
                     }) {
                         HStack {
                             if tmpOption == label.count-1 {
-                                checkmark.foregroundColor(.orange)
+                                checkmark.foregroundColor(Color("check"))
                             }
                             else { checkmark.hidden() }
-                            Text(label.last!).foregroundColor(.black)
+                            Text(label.last!).foregroundColor(.white)
                         }
-                    }
+                    }.listRowBackground(Color("rowColor"))
                 }
-            }
+            }.background(Color("scroll_background"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         tmpOption = selectedOption
                         isPresented.toggle()
-                    }) { Text("취소") }
+                    }) { Text("취소").foregroundColor(Color("check")) }
                 }
-                ToolbarItem(placement: .principal) { Text("타이머 종료 시") }
+                ToolbarItem(placement: .principal) { Text("타이머 종료 시").foregroundColor(Color.white) }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         selectedOption = tmpOption
                         isPresented.toggle()
-                    }) { Text("설정") }
+                    }) { Text("설정").foregroundColor(Color("check")) }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color(uiColor: UIColor.white), for: .navigationBar)
+            .toolbarBackground(Color("tabbar"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
