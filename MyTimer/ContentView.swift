@@ -38,12 +38,10 @@ struct TimerView: View {
                 }.buttonStyle(PlainButtonStyle())
                 Spacer()
                 Button(action: {
-                    if !isStart { isStart.toggle(); isPause.toggle(); btnText = "일시 정지" }
-                    else {
-                        isPause.toggle()
-                        if isPause { btnText = "재개" }
-                        else { btnText = "일시 정지" }
-                    }
+                    isStart = true
+                    isPause.toggle()
+                    if isPause { btnText = "재개" }
+                    else { btnText = "일시 정지" }
                 }) {
                     Text(btnText)
                         .padding(0)
