@@ -14,6 +14,9 @@ struct TimerView: View {
     @State private var isPresented = false
     @State private var selectedOption = 0
     @State private var tmpOption = 0
+    @State private var isStart = false
+    @State private var isPause = true
+    @State private var btnText = "시작"
     
     var body: some View {
         VStack {
@@ -21,32 +24,37 @@ struct TimerView: View {
             HStack {
                 Spacer().frame(width: 20)
                 Button(action: {
-                    
+                    if isStart { isStart = false; isPause = true; btnText = "시작" }
                 }) {
                     Text("취소")
-                        .padding(25)
+                        .padding(0)
                         .frame(width: 80, height: 80)
-                        .foregroundColor(Color("cancel_font"))
+                        .foregroundColor(isStart ? Color.white : Color("cancel_font"))
                         .background(Color("cancel_background"))
                         .clipShape(Circle())
                         .overlay(
                             RoundedRectangle(cornerRadius: 43).stroke(Color("cancel_background"), lineWidth: 2).frame(width: 86, height: 86)
                         )
-                }
+                }.buttonStyle(PlainButtonStyle())
                 Spacer()
                 Button(action: {
-                    
+                    if !isStart { isStart.toggle(); isPause.toggle(); btnText = "일시 정지" }
+                    else {
+                        isPause.toggle()
+                        if isPause { btnText = "재개" }
+                        else { btnText = "일시 정지" }
+                    }
                 }) {
-                    Text("시작")
-                        .padding(25)
+                    Text(btnText)
+                        .padding(0)
                         .frame(width: 80, height: 80)
-                        .foregroundColor(Color("start_font"))
-                        .background(Color("start_background"))
+                        .foregroundColor(!isPause ? Color("check") : Color("start_font"))
+                        .background(!isPause ? Color("stop_background") : Color("start_background"))
                         .clipShape(Circle())
                         .overlay(
-                            RoundedRectangle(cornerRadius: 43).stroke(Color("start_background"), lineWidth: 2).frame(width: 86, height: 86)
+                            RoundedRectangle(cornerRadius: 43).stroke(!isPause ? Color("stop_background") : Color("start_background"), lineWidth: 2).frame(width: 86, height: 86)
                         )
-                }
+                }.buttonStyle(PlainButtonStyle())
                 Spacer().frame(width: 20)
             }
             
@@ -69,6 +77,7 @@ struct TimerView: View {
             }
             .listStyle(InsetGroupedListStyle())
             .scrollContentBackground(.hidden)
+            .scrollDisabled(true)
         }.background(.black)
     }
 }
