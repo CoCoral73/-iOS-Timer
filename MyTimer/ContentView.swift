@@ -16,6 +16,37 @@ struct TimerView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Spacer().frame(width: 20)
+                Button(action: {
+                    
+                }) {
+                    Text("취소")
+                        .padding(25)
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(Color("cancel_font"))
+                        .background(Color("cancel_background"))
+                        .clipShape(Circle())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 43).stroke(Color("cancel_background"), lineWidth: 2).frame(width: 86, height: 86)
+                        )
+                }
+                Spacer()
+                Button(action: {
+                    
+                }) {
+                    Text("시작")
+                        .padding(25)
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(Color("start_font"))
+                        .background(Color("start_background"))
+                        .clipShape(Circle())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 43).stroke(Color("start_background"), lineWidth: 2).frame(width: 86, height: 86)
+                        )
+                }
+                Spacer().frame(width: 20)
+            }
             List {
                 Button(action: {
                     isPresented.toggle()
@@ -32,7 +63,8 @@ struct TimerView: View {
                 })
             }
             .listStyle(InsetGroupedListStyle())
-        }
+            .scrollContentBackground(.hidden)
+        }.background(.black)
     }
 }
 
@@ -96,6 +128,6 @@ struct PickerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView()
+        TimerView()//.ignoresSafeArea()
     }
 }
